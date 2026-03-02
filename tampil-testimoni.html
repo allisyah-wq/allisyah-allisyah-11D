@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="id">
+     <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial scale=1.0">
+        <title>Profil Usaha Buku </title>
+        <link rel="stylesheet" href="style.css"/>
+        </head>
+        <body>
+<nav>
+  <a href="index.html">beranda</a>
+  <a href="produk.html">produk</a>
+  <a href="bedah-buku.html">bedah buku</a>
+  <a href="testimoni.html">testimoni</a>
+  <a href="tampil-testimoni.html">testimoni pembeli</a>
+</nav>
+<main class="formulir">
+    <h2> Testimoni-testimoni pembeli:</h2>
+
+    <div id="daftarTestimoni"></div>
+    <button id="hapus semua"> Hapus Semua Testimoni</button>
+</div>
+<section>
+    <div id="daftarTestimoni"></div>
+</section>
+</main>
+<footer>
+    <p> &copy; 2026 uqola's store</p>
+</footer>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+  const container = document.getElementById("daftar-testimoni");
+
+  const testimonilist =
+    JSON.parse(localStorage.getItem("testimoniList")) || [];
+
+  if (testimonilist.length === 0) {
+    container.innerHTML = "<p>Belum ada testimoni.</p>";
+  } else {
+    testimonilist.forEach((t, i) => {
+      const el = document.createElement("div");
+      el.className = "testimoni-box";
+      el.innerHTML = `
+        <p><strong>Nama:</strong> ${t.nama}</p>
+        <p><strong>Asal:</strong> ${t.asal}</p>
+        <p><strong>Judul:</strong> ${t.judul}</p>
+        <p><strong>Email:</strong> ${t.email}</p>
+        <p><strong>Pesan:</strong> ${t.pesan}</p>
+        <p><strong>Rating:</strong> ${t.rating}</p>
+      `;
+      container.appendChild(el);
+    });
+  }
+
+  const btnHapus = document.getElementById("hapus-semua");
+  if (btnHapus) {
+    btnHapus.addEventListener("click", function () {
+      const konfirmasi = confirm(
+        "Apakah anda yakin ingin menghapus semua testimoni?"
+      );
+      if (konfirmasi) {
+        localStorage.removeItem("testimoniList");
+        location.reload();
+      }
+    });
+  }
+
+});
+</script>
